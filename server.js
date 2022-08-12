@@ -6,7 +6,7 @@ var router = require('./router');
 app.use(bodyParser.json());
 app.use('/', router);
 
-app.use('/:birth', router);
+app.use('/howold', router);
 
 
 

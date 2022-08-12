@@ -11,8 +11,8 @@ router.get('/',(req, res)=> {
 })
 
 // The endpoint for calculating age.
-router.get('/:birth', (req, res)=>{
-    var check = dateIsValid(req.params.birth);
+router.get('/howwold', (req, res)=>{
+    var check = dateIsValid(req.body.birth);
     if (check){
         call ++;
         var call_time = Date.now() - start;
@@ -23,14 +23,14 @@ router.get('/:birth', (req, res)=>{
                 start = Date.now();
                 t_sec = 0;
             } 
-            var cal_age = calculate_age(req.params.birth);
+            var cal_age = calculate_age(req.body.birth);
             var response = "Age:"+cal_age; 
         } else{  
             if (t_sec >= 1) { 
                 call = 1;
                 start = Date.now();
                 t_sec = 0;
-                var cal_age = calculate_age(req.params.birth);
+                var cal_age = calculate_age(req.body.birth);
                 var response = "Age:"+cal_age; 
             } else{
                 var response = "wait ..........";
