@@ -11,7 +11,7 @@ router.get('/',(req, res)=> {
 })
 
 // The endpoint for calculating age.
-router.get('/howwold', (req, res)=>{
+router.get('/howold', (req, res)=>{
     var check = dateIsValid(req.body.birth);
     if (check){
         call ++;
