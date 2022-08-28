@@ -1,5 +1,4 @@
 const { json } = require('body-parser');
-const cors = require('cors');
 const url = require('url')
 var express = require('express');
 var router = express.Router();
