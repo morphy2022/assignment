@@ -1,3 +1,6 @@
+const { json } = require('body-parser');
+const cors = require('cors');
+const url = require('url')
 var express = require('express');
 var router = express.Router();
 
@@ -7,14 +10,23 @@ var call = 0;
 
 // The endpoint for base URL.
 router.get('/',(req, res)=> {
-   return res.status(200).send("Welcome");
+   res.sendFile(__dirname + '/index.html');
 })
 
 // The endpoint for calculating age.
 router.get('/howold', (req, res)=>{
-    var check = dateIsValid(req.body.birth);
+    const protocol = req.protocol;
+    const host = req.hostname;
+    const url = req.originalUrl;
+    const port = 3000
+    const fullUrl = `${protocol}://${host}:${port}${url}`
+
+    var current_url = new URL(fullUrl);
+    var search_params = current_url.searchParams;
+    var birth = search_params.get('birth');
+    var check = dateIsValid(birth);
     if (check){
-        call ++;
+       call ++;
         var call_time = Date.now() - start;
         var t_sec = Math.floor(call_time / 1000);
         if(call <= 3){
@@ -23,20 +35,19 @@ router.get('/howold', (req, res)=>{
                 start = Date.now();
                 t_sec = 0;
             } 
-            var cal_age = calculate_age(req.body.birth);
+            var cal_age = calculate_age(birth);
             var response = "Age:"+cal_age; 
         } else{  
             if (t_sec >= 1) { 
                 call = 1;
                 start = Date.now();
                 t_sec = 0;
-                var cal_age = calculate_age(req.body.birth);
+                var cal_age = calculate_age(birth);
                 var response = "Age:"+cal_age; 
             } else{
                 var response = "wait ..........";
             } 
         }
-
         return res.status(200).send(response);
     }
     return res.status(400).send("Date of birth is invalid");
