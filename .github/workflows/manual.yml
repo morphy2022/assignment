@@ -1,0 +1,14 @@
+# This is a basic workflow that is manually triggered
+
+name: Manual workflow
+
+on: [push, pull_request]
+
+jobs: 
+  assignment:
+    runs-on: unbutu_latest 
+    steps: 
+    - uses: actions/checkout@v1
+    - uses: ./
+      with: 
+        birth: "1987-12-12"
