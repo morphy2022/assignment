@@ -8,8 +8,22 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+  workflow_dispatch:
+    inputs:
+      birth:
+        description: 'Date of Birth'     
+        required: true
+        default: 'warning'
+      tags:
+        description: 'Test scenario tags'
 
 jobs:
+  printInputs:
+      runs-on: ubuntu-latest
+      steps:
+      - run: |
+          echo "Log level: ${{ github.event.inputs.birth }}"
+          echo "Tags: ${{ github.event.inputs.tags }}"
   build:
 
     runs-on: ubuntu-latest
