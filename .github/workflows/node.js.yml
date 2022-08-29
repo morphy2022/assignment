@@ -18,12 +18,7 @@ on:
         description: 'Test scenario tags'
 
 jobs:
-  printInputs:
-      runs-on: ubuntu-latest
-      steps:
-      - run: |
-          echo "Log level: ${{ github.event.inputs.birth }}"
-          echo "Tags: ${{ github.event.inputs.tags }}"
+
   build:
 
     runs-on: ubuntu-latest
@@ -43,4 +38,7 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm install
+    - run: |
+          echo "Log level: ${{ github.event.inputs.birth }}"
+          echo "Tags: ${{ github.event.inputs.tags }}"
     - run: npm start
