@@ -1,9 +1,8 @@
-const { json } = require('body-parser');
-const url = require('url')
 var express = require('express');
 var router = express.Router();
+const core = require('@actions/core');
 
-
+const DEFAULT_CHARACTER = '1987-12-12';
 var start = Date.now();
 var call = 0;
 
@@ -19,10 +18,13 @@ router.get('/howold', (req, res)=>{
     const url = req.originalUrl;
     const port = 3000
     const fullUrl = `${protocol}://${host}:${port}${url}`
+    
+    var birth = core.getInput('birth') || DEFAULT_CHARACTER;
 
     var current_url = new URL(fullUrl);
     var search_params = current_url.searchParams;
     var birth = search_params.get('birth');
+    
     var check = dateIsValid(birth);
     if (check){
        call ++;
